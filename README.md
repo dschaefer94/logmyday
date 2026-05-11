@@ -1,0 +1,2 @@
+# logmyday
+php-daily-logger
