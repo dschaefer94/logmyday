@@ -5,34 +5,21 @@ namespace lmd\Model;
 use lmd\Library\Msg;
 
 abstract class Database {
-    
-
-    // Zugangsdaten für die lokale Datenbank 
-     
-    // private $dbName = "task_it"; //Datenbankname
-    // private $linkName = "localhost"; //Datenbank-Server
-    // private $user = "root"; //Benutzername
-    // private $pw = "root"; //Passwort
-
-//MySQL-Datenbank Zugangsdaten
-    private $dbName = "pbd2h24asc_logmyday"; //Datenbankname
-    private $linkName = "mysql.pb.bib.de"; //Datenbank-Server
-    private $user = "pbd2h24asc"; //Benutzername
-    private $pw = "8x2uXWAeTEMC"; //Passwort
-
-    
     /**
      * Stellt eine Verbindung zur Datenbank her
-     * 
+     *
      * @return \PDO Gibt eine Datenbankverbindung zurueck
      */
     public function linkDB() {
+        $env = parse_ini_file(__DIR__ . '/../.env');
+
         try {
-            $pdo = new \PDO("mysql:dbname=$this->dbName;host=$this->linkName"
-                , $this->user
-                , $this->pw
-                , array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
-            return $pdo;
+            return new \PDO(
+                "mysql:dbname={$env['DB_NAME']};host={$env['DB_HOST']}",
+                $env['DB_USER'],
+                $env['DB_PASS'],
+                [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]
+            );
         } catch (\PDOException $e) {
             new Msg(true, null, $e);
         }
