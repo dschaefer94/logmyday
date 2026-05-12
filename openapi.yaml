@@ -1,0 +1,100 @@
+openapi: 3.1.0
+info:
+  title: logmyday
+  description: logmyday-openapi-specification for the logmyday-api
+  version: 1.0.0
+servers:
+  - url: 'http://localhost/logmyday/restapi.php'
+paths:
+  /category:
+    get:
+      summary: Get all categories
+      responses:
+        '200':
+          description: OK
+
+  /data:
+    post:
+      summary: add data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsertData'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsertDataSuccess'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsertDataError'
+
+components:
+  schemas:
+    InsertData:
+      type: object
+      properties:
+        categoryId:
+          type: string
+          format: uuid
+          example: 7ab28278-91e4-11e7-b93f-2c4d544f8fe0
+        logValue:
+          type: number
+          example: 123.45
+        logDate:
+          type: string
+          format: date
+          example: 2021-01-01
+
+    InsertDataSuccess:
+      type: object
+      description: Erfolgreich eingefügt
+      properties:
+        isError:
+          type: boolean
+          enum: [false]
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426655440000
+        categoryId:
+          type: string
+          format: uuid
+          example: 7ab28278-91e4-11e7-b93f-2c4d544f8fe0
+        logValue:
+          type: number
+          example: 123.45
+        logDate:
+          type: string
+          format: date
+          example: 2021-01-01
+      required:
+        - isError
+        - id
+        - categoryId
+        - logValue
+        - logDate
+
+    InsertDataError:
+      type: object
+      description: Fehler bei der Verarbeitung
+      properties:
+        isError:
+          type: boolean
+          enum: [true]
+        msg:
+          type: string
+          example: "Datenbankfehler"
+        ex:
+          type: string
+          example: "Technikgedöns"
+      required:
+        - isError
+        - msg
