@@ -35,6 +35,39 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InsertDataError'
+  /user/login:
+    get:
+      summary: Login a user
+      parameters:
+        - name: username
+          in: query
+          required: true
+          schema:
+            type: string
+            example: fionafit
+        - name: pw
+          in: query
+          required: true
+          schema:
+            type: string
+            example: '12345'
+      responses:
+        '200':
+          description: Login response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+  /user/isLogin:
+    get:
+      summary: Check if a user is logged in
+      responses:
+        '200':
+          description: Login status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IsLoginResponse'
 
 components:
   schemas:
@@ -98,3 +131,31 @@ components:
       required:
         - isError
         - msg
+    LoginResponse:
+      type: object
+      properties:
+        isError:
+          type: boolean
+          description: Indicates if an error occurred
+          example: false
+        msg:
+          type: string
+          description: Message related to the login attempt
+          example: "Login successful"
+        isLogin:
+          type: boolean
+          description: Was the login successful?
+          example: true
+      required:
+        - isError
+        - msg
+        - isLogin
+    IsLoginResponse:
+      type: object
+      properties:
+        isLogin:
+          type: boolean
+          description: Is the user currently logged in?
+          example: true
+      required:
+        - isLogin

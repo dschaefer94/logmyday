@@ -38,17 +38,17 @@
 /**
  * Options for insert new task
  */
-    $params = json_encode(array("CategoryId" => "8bb28278-91e4-11e7-b93f-2c4d544f8fe0"
-        , 'logValue' => '10,00'
-        , 'logDate' => '15.03.2022'
-    ));
-    $defaults = array(
-        CURLOPT_URL => $url . '/data',
-        CURLOPT_CUSTOMREQUEST => "POST",
-        // CURLOPT_COOKIEFILE => $filepath . 'cookie.txt', // set cookie file to given file
-        // CURLOPT_COOKIEJAR => $filepath . 'cookie.txt', // set same file as cookie jar
-         CURLOPT_POSTFIELDS => $params
-    );
+//    $params = json_encode(array("CategoryId" => "8bb28278-91e4-11e7-b93f-2c4d544f8fe0"
+//        , 'logValue' => '10,00'
+//        , 'logDate' => '15.03.2022'
+//    ));
+//    $defaults = array(
+//        CURLOPT_URL => $url . '/data',
+//        CURLOPT_CUSTOMREQUEST => "POST",
+//        // CURLOPT_COOKIEFILE => $filepath . 'cookie.txt', // set cookie file to given file
+//        // CURLOPT_COOKIEJAR => $filepath . 'cookie.txt', // set same file as cookie jar
+//         CURLOPT_POSTFIELDS => $params
+//    );
 
 /**
  * Options for Update Task OHNE Login
